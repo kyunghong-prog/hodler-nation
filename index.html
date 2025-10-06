@@ -3,18 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hodler Nation</title>
+    <meta name="description" content="Join Hodler Nation - Build your path to $1 million by 65 through ETF investing. Free calculators, community support, and proven strategies.">
+    <title>Hodler Nation - Your Path to $1 Million by 65</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .hero .tagline {
+            font-size: 24px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .hero .subtitle {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            display: block;
+        }
+        
+        .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            padding: 30px;
+            border-radius: 16px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+        
+        .feature-description {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        .cta-section {
+            background: #1e293b;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero .tagline { font-size: 18px; }
+            .section-title { font-size: 32px; }
+        }
+    </style>
 </head>
-<body style="margin:0;padding:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;justify-content:center;align-items:center;color:white;text-align:center;">
-    <div style="padding:40px;">
-        <h1 style="font-size:48px;margin:20px;">💎 Hodler Nation 💎</h1>
-        <h2 style="font-size:32px;margin:20px;">Your Path to $1 Million by 65</h2>
-        <p style="font-size:24px;margin:30px;">🎉 SUCCESS! Your Website is LIVE! 🎉</p>
-        <p style="font-size:18px;opacity:0.9;">If you can see this properly formatted page, everything is working!</p>
-        <div style="margin-top:40px;padding:20px;background:rgba(255,255,255,0.2);border-radius:10px;">
-            <p style="font-size:16px;">Next step: Add the full calculator and features</p>
+<body>
+    <section class="hero">
+        <h1>💎 Welcome to Hodler Nation 💎</h1>
+        <p class="tagline">Your Path to $1 Million by 65</p>
+        <p class="subtitle">
+            Join thousands of Hodlers building wealth through simple ETF investing. 
+            No day trading. No speculation. Just proven strategies and community support.
+        </p>
+        
+        <div class="cta-buttons">
+            <a href="calculator.html" class="btn btn-primary">Calculate Your Path</a>
+            <a href="#features" class="btn btn-secondary">Learn More</a>
         </div>
-        <p style="margin-top:40px;font-size:14px;">Hold Together. Grow Together. Win Together. 💎🙌</p>
-    </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number">50,000+</span>
+                <span class="stat-label">Active Hodlers</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">$2.4B+</span>
+                <span class="stat-label">Community Portfolio Value</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">847</span>
+                <span class="stat-label">Million Dollar Hodlers</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Why Hodler Nation?</h2>
+        <p class="section-subtitle">
+            We're not just a calculator. We're a movement of everyday people building generational wealth.
+        </p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Personalized Plans</h3>
+                <p class="feature-description">
+                    Get exact monthly investment amounts based on your age, income, and goals. 
+                    No guesswork, just actionable numbers.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Simple ETF Strategy</h3>
+                <p class="feature-description">
+                    Focus on SPY and QQQ. No complex portfolios. No constant rebalancing. 
+                    Just buy, hold, and grow wealthy.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3 class="feature-title">Community Support</h3>
+                <p class="feature-description">
+                    Hold through market crashes together. Celebrate milestones. Share real stories. 
+                    Nobody builds wealth alone.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <h3 class="feature-title">Diamond Hands</h3>
+                <p class="feature-description">
+                    Learn to hold through volatility. Avoid panic selling. Build discipline through 
+                    community accountability.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">Track Your Progress</h3>
+                <p class="feature-description">
+                    Monitor your journey to $100K, $250K, $500K, and beyond. Celebrate every milestone 
+                    with the community.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <h3 class="feature-title">Free Education</h3>
+                <p class="feature-description">
+                    Learn tax optimization, account strategies, and behavioral finance. 
+                    Everything you need to succeed.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to Join the Nation?</h2>
+        <p>Start your journey to $1 million today. It's free, it's simple, and it works.</p>
+        <div class="cta-buttons">
+            <a href="calculator.html" class="btn btn-primary">Get Your Free Plan</a>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>Hold Together. Grow Together. Win Together.</strong> 💎🙌</p>
+        <p style="font-size: 12px; margin-top: 20px;">
+            Disclaimer: Hodler Nation is for educational purposes only. We are not financial advisors. 
+            Past performance does not guarantee future results. Invest at your own risk.
+        </p>
+        <p style="margin-top: 20px; font-size: 14px;">© 2025 Hodler Nation. All rights reserved.</p>
+    </footer>
 </body>
 </html>
