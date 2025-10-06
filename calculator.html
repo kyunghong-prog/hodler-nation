@@ -1,385 +1,346 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hodler Nation - Calculator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        .calculator-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            margin-bottom: 20px;
+            color: #667eea;
+            font-size: 24px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-group input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+        }
+        
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .allocation-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .allocation-box h3 { margin-bottom: 10px; }
+        
+        .allocation-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .result-card {
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+        }
+        
+        .result-card.success { background: #10b981; }
+        .result-card.warning { background: #f59e0b; }
+        .result-card.purple { background: #8b5cf6; }
+        .result-card.blue { background: #3b82f6; }
+        
+        .result-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .result-value {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .result-detail {
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        
+        .cta-box {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-box h3 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        .cta-box p {
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            background: white;
+            color: #d97706;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            opacity: 0.8;
+        }
+        
+        .footer p { margin-bottom: 10px; }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+        }
+        
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Hodler Nation - Path to $1 Million&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: system-ui, -apple-system, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 800px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header h1 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 42px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header p {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.9;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.calculator-card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 20px 60px rgba(0,0,0,0.3);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section-title {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #667eea;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.input-group {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.input-group label {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.input-group input[type="range"] {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.slider-labels {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.allocation-box {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.allocation-box h3 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.allocation-value {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.results-grid {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-card.success {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #10b981;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-card.warning {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #f59e0b;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-card.purple {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #8b5cf6;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-card.blue {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #3b82f6;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-label {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.9;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-value {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 32px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-detail {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-box {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-box h3 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-box p {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.9;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #d97706;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-button:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(1.05);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.footer {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.8;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.footer p {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Header --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1&gt;💎 Hodler Nation 💎&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;Your Path to $1 Million by 65&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Calculator Card --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="calculator-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Input Section --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="section-title"&gt;Your Information&lt;/h2&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label&gt;Current Age: &lt;span id="age-value"&gt;30&lt;/span&gt;&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="range" id="age" min="20" max="60" value="30"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="slider-labels"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;20&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;40&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;60&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label&gt;Current Savings: &lt;span id="savings-value"&gt;$5,000&lt;/span&gt;&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="range" id="savings" min="0" max="100000" step="1000" value="5000"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="slider-labels"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;$0&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;$50K&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;$100K&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label&gt;Monthly Investment: &lt;span id="monthly-value"&gt;$500&lt;/span&gt;&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="range" id="monthly" min="50" max="5000" step="50" value="500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="slider-labels"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;$50&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;$2,500&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;$5,000&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Allocation Box --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="allocation-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Recommended Allocation&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="allocation-value" id="allocation"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="expected-return"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Results Grid --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="results-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-card" id="final-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;At Age 65&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-value" id="final-value"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-detail" id="goal-status"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-card purple"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;Total Gains&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-value" id="gains-value"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-detail"&gt;💰 From compound interest&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-card blue"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;You Contribute&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-value" id="contributed-value"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-detail" id="years-detail"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- CTA Box --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="cta-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Want Custom Goals?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Upgrade to Pro to set income multiplier goals (10x, 15x, 20x salary), track multiple goals, and get advanced analytics!&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="cta-button" onclick="alert('Pro version coming soon!')"&gt;Try Pro Free for 14 Days&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Footer --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;Hold Together. Grow Together. Win Together. 💎🙌&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p style="font-size: 12px;"&gt;Disclaimer: This is for educational purposes only. Not financial advice.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Get elements</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const ageInput = document.getElementById('age');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const savingsInput = document.getElementById('savings');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const monthlyInput = document.getElementById('monthly');</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const ageValue = document.getElementById('age-value');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const savingsValue = document.getElementById('savings-value');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const monthlyValue = document.getElementById('monthly-value');</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Format currency</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function formatCurrency(value) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return new Intl.NumberFormat('en-US', {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>style: 'currency',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>currency: 'USD',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>minimumFractionDigits: 0,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>maximumFractionDigits: 0,</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}).format(value);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Get allocation based on age</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function getAllocation(age) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (age &lt; 30) return { spy: 20, qqq: 80, return: 0.131 };</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (age &lt; 40) return { spy: 30, qqq: 70, return: 0.126 };</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (age &lt; 50) return { spy: 50, qqq: 50, return: 0.120 };</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (age &lt; 60) return { spy: 60, qqq: 40, return: 0.117 };</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return { spy: 70, qqq: 30, return: 0.114 };</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Calculate results</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function calculate() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const age = parseInt(ageInput.value);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const currentSavings = parseInt(savingsInput.value);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const monthlyContribution = parseInt(monthlyInput.value);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Update display values</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ageValue.textContent = age;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>savingsValue.textContent = formatCurrency(currentSavings);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>monthlyValue.textContent = formatCurrency(monthlyContribution);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Get allocation</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const allocation = getAllocation(age);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('allocation').textContent =<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>`${allocation.spy}% SPY / ${allocation.qqq}% QQQ`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('expected-return').textContent =<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>`Expected Return: ${(allocation.return * 100).toFixed(1)}% annually`;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Calculate</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const retirementAge = 65;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const yearsToRetirement = retirementAge - age;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const monthlyRate = allocation.return / 12;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const months = yearsToRetirement * 12;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const futureOfSavings = currentSavings * Math.pow(1 + monthlyRate, months);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const futureOfContributions = monthlyContribution *<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const finalValue = Math.round(futureOfSavings + futureOfContributions);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const totalContributed = Math.round(currentSavings + (monthlyContribution * months));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const totalGains = finalValue - totalContributed;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const reachesGoal = finalValue &gt;= 1000000;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Update results</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('final-value').textContent = formatCurrency(finalValue);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('gains-value').textContent = formatCurrency(totalGains);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('contributed-value').textContent = formatCurrency(totalContributed);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('years-detail').textContent = `Over ${yearsToRetirement} years`;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Update goal status</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const finalCard = document.getElementById('final-card');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (reachesGoal) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>finalCard.className = 'result-card success';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('goal-status').textContent = '✅ You will reach $1M!';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>finalCard.className = 'result-card warning';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('goal-status').textContent =<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>`⚠️ Short by ${formatCurrency(1000000 - finalValue)}`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Add event listeners</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ageInput.addEventListener('input', calculate);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>savingsInput.addEventListener('input', calculate);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>monthlyInput.addEventListener('input', calculate);</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Initial calculation</p>
-<p class="p1"><span class="Apple-converted-space">        </span>calculate();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="header">
+            <h1>💎 Hodler Nation 💎</h1>
+            <p>Your Path to $1 Million by 65</p>
+        </div>
+
+        <div class="calculator-card">
+            <div>
+                <h2 class="section-title">Your Information</h2>
+                
+                <div class="input-group">
+                    <label>Current Age: <span id="age-value">30</span></label>
+                    <input type="range" id="age" min="20" max="60" value="30">
+                    <div class="slider-labels">
+                        <span>20</span>
+                        <span>40</span>
+                        <span>60</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Current Savings: <span id="savings-value">$5,000</span></label>
+                    <input type="range" id="savings" min="0" max="100000" step="1000" value="5000">
+                    <div class="slider-labels">
+                        <span>$0</span>
+                        <span>$50K</span>
+                        <span>$100K</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Monthly Investment: <span id="monthly-value">$500</span></label>
+                    <input type="range" id="monthly" min="50" max="5000" step="50" value="500">
+                    <div class="slider-labels">
+                        <span>$50</span>
+                        <span>$2,500</span>
+                        <span>$5,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="allocation-box">
+                <h3>Recommended Allocation</h3>
+                <div class="allocation-value" id="allocation"></div>
+                <div id="expected-return"></div>
+            </div>
+
+            <div class="results-grid">
+                <div class="result-card" id="final-card">
+                    <div class="result-label">At Age 65</div>
+                    <div class="result-value" id="final-value"></div>
+                    <div class="result-detail" id="goal-status"></div>
+                </div>
+
+                <div class="result-card purple">
+                    <div class="result-label">Total Gains</div>
+                    <div class="result-value" id="gains-value"></div>
+                    <div class="result-detail">💰 From compound interest</div>
+                </div>
+
+                <div class="result-card blue">
+                    <div class="result-label">You Contribute</div>
+                    <div class="result-value" id="contributed-value"></div>
+                    <div class="result-detail" id="years-detail"></div>
+                </div>
+            </div>
+
+            <div class="cta-box">
+                <h3>Want Custom Goals?</h3>
+                <p>Upgrade to Pro to set income multiplier goals (10x, 15x, 20x salary), track multiple goals, and get advanced analytics!</p>
+                <button class="cta-button" onclick="alert('Pro version coming soon! Stay tuned.')">Try Pro Free for 14 Days</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Hold Together. Grow Together. Win Together. 💎🙌</p>
+            <p style="font-size: 12px;">Disclaimer: This is for educational purposes only. Not financial advice.</p>
+        </div>
+    </div>
+
+    <script>
+        const ageInput = document.getElementById('age');
+        const savingsInput = document.getElementById('savings');
+        const monthlyInput = document.getElementById('monthly');
+        
+        const ageValue = document.getElementById('age-value');
+        const savingsValue = document.getElementById('savings-value');
+        const monthlyValue = document.getElementById('monthly-value');
+        
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            }).format(value);
+        }
+        
+        function getAllocation(age) {
+            if (age < 30) return { spy: 20, qqq: 80, return: 0.131 };
+            if (age < 40) return { spy: 30, qqq: 70, return: 0.126 };
+            if (age < 50) return { spy: 50, qqq: 50, return: 0.120 };
+            if (age < 60) return { spy: 60, qqq: 40, return: 0.117 };
+            return { spy: 70, qqq: 30, return: 0.114 };
+        }
+        
+        function calculate() {
+            const age = parseInt(ageInput.value);
+            const currentSavings = parseInt(savingsInput.value);
+            const monthlyContribution = parseInt(monthlyInput.value);
+            
+            ageValue.textContent = age;
+            savingsValue.textContent = formatCurrency(currentSavings);
+            monthlyValue.textContent = formatCurrency(monthlyContribution);
+            
+            const allocation = getAllocation(age);
+            document.getElementById('allocation').textContent = 
+                `${allocation.spy}% SPY / ${allocation.qqq}% QQQ`;
+            document.getElementById('expected-return').textContent = 
+                `Expected Return: ${(allocation.return * 100).toFixed(1)}% annually`;
+            
+            const retirementAge = 65;
+            const yearsToRetirement = retirementAge - age;
+            const monthlyRate = allocation.return / 12;
+            const months = yearsToRetirement * 12;
+            
+            const futureOfSavings = currentSavings * Math.pow(1 + monthlyRate, months);
+            const futureOfContributions = monthlyContribution * 
+                ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+            
+            const finalValue = Math.round(futureOfSavings + futureOfContributions);
+            const totalContributed = Math.round(currentSavings + (monthlyContribution * months));
+            const totalGains = finalValue - totalContributed;
+            const reachesGoal = finalValue >= 1000000;
+            
+            document.getElementById('final-value').textContent = formatCurrency(finalValue);
+            document.getElementById('gains-value').textContent = formatCurrency(totalGains);
+            document.getElementById('contributed-value').textContent = formatCurrency(totalContributed);
+            document.getElementById('years-detail').textContent = `Over ${yearsToRetirement} years`;
+            
+            const finalCard = document.getElementById('final-card');
+            if (reachesGoal) {
+                finalCard.className = 'result-card success';
+                document.getElementById('goal-status').textContent = '✅ You will reach $1M!';
+            } else {
+                finalCard.className = 'result-card warning';
+                document.getElementById('goal-status').textContent = 
+                    `⚠️ Short by ${formatCurrency(1000000 - finalValue)}`;
+            }
+        }
+        
+        ageInput.addEventListener('input', calculate);
+        savingsInput.addEventListener('input', calculate);
+        monthlyInput.addEventListener('input', calculate);
+        
+        calculate();
+    </script>
 </body>
 </html>
