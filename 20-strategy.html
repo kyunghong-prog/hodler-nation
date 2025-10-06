@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your 20s Strategy - Hodler Nation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero .subtitle {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+        }
+        
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        
+        .section p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #475569;
+        }
+        
+        .highlight-box {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #065f46;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .highlight-box p {
+            color: #065f46;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 42px;
+            font-weight: bold;
+            color: #10b981;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .tips-list {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .tips-list h3 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .tip-item {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .tip-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .tip-item strong {
+            color: #1e293b;
+        }
+        
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .warning-box h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .warning-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .warning-box li {
+            color: #92400e;
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .warning-box li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 60px 0;
+        }
+        
+        .cta-box h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .section h2 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Back to Home</a>
+    
+    <section class="hero">
+        <h1>🎓 Your 20s: The Time Advantage</h1>
+        <p class="subtitle">You have the most powerful wealth-building tool: TIME</p>
+    </section>
+
+    <div class="content">
+        <div class="section">
+            <h2>Your Superpower</h2>
+            <p>If you're in your 20s, you have something millionaires would pay millions for: <strong>40+ years of compound growth ahead of you.</strong></p>
+            <p>This is your time to be aggressive, take advantage of compound interest, and set yourself up for life. Every dollar you invest in your 20s can turn into $88 by age 65 (at 10.5% annual returns).</p>
+        </div>
+
+        <div class="highlight-box">
+            <h3>💰 The Numbers: Starting at Age 25</h3>
+            <p><strong>Monthly Investment:</strong> $250-500/month</p>
+            <p><strong>Total Invested Over 40 Years:</strong> $120,000-$240,000</p>
+            <p><strong>Expected Value at 65:</strong> $1.4M - $2.8M</p>
+            <p><strong>Your Money Will Double:</strong> Every 7-8 years</p>
+        </div>
+
+        <div class="section">
+            <h2>Your Recommended Strategy</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">80%</span>
+                    <span class="stat-label">QQQ (Aggressive Growth)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">20%</span>
+                    <span class="stat-label">SPY (Stability)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">13.1%</span>
+                    <span class="stat-label">Expected Annual Return</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Years to Compound</span>
+                </div>
+            </div>
+
+            <p>At your age, you can afford to be aggressive. An 80/20 QQQ/SPY split gives you maximum growth potential with just enough diversification. You have decades to recover from market crashes.</p>
+        </div>
+
+        <div class="tips-list">
+            <h3>Action Steps for 20-Somethings</h3>
+            
+            <div class="tip-item">
+                <strong>Open a Roth IRA immediately:</strong> Contributions grow tax-free forever. Max it out if you can ($7,000/year in 2025). Your future self will thank you.
+            </div>
+            
+            <div class="tip-item">
+                <strong>Automate everything:</strong> Set up automatic monthly investments. Make it so you never have to think about it. The money comes out before you can spend it.
+            </div>
+            
+            <div class="tip-item">
+                <strong>Live below your means:</strong> Avoid lifestyle inflation. Just because you got a raise doesn't mean you need a nicer apartment. Invest the difference.
+            </div>
+            
+            <div class="tip-item">
+                <strong>Side hustle your way up:</strong> Extra $500/month from freelancing? That's $600K+ by retirement. Your 20s are perfect for hustling.
+            </div>
+            
+            <div class="tip-item">
+                <strong>Employer 401(k) match = free money:</strong> Always get the full match. That's an instant 50-100% return on your money. Nothing beats that.
+            </div>
+            
+            <div class="tip-item">
+                <strong>Learn to hold through crashes:</strong> You'll see 3-5 major crashes before 65. Every one is a buying opportunity, not a reason to sell.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Your Milestones</h2>
+            <p>Here's what your journey looks like if you start at 25 with $400/month:</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">Age 28</span>
+                    <span class="stat-label">First $10,000</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">Age 33</span>
+                    <span class="stat-label">First $50,000</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">Age 37</span>
+                    <span class="stat-label">First $100,000</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">Age 50</span>
+                    <span class="stat-label">$500,000</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">Age 60</span>
+                    <span class="stat-label">$1,200,000</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">Age 65</span>
+                    <span class="stat-label">$1,800,000</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h3>Common Mistakes to Avoid in Your 20s</h3>
+            <ul>
+                <li><strong>Waiting to start:</strong> "I'll invest when I make more money" is the biggest wealth killer. Start with $50/month if that's all you have.</li>
+                <li><strong>Timing the market:</strong> You can't. No one can. Just buy and hold.</li>
+                <li><strong>Following crypto bros:</strong> SPY and QQQ are boring. That's the point. Boring makes you rich.</li>
+                <li><strong>Cashing out for "emergencies":</strong> Build a separate emergency fund. Never touch your investments.</li>
+                <li><strong>Buying individual stocks:</strong> You're not smarter than the market. Stick to index funds.</li>
+                <li><strong>Lifestyle inflation:</strong> Every raise should go 50% to investments, not a nicer car.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Real Talk: Can You Actually Do This?</h2>
+            <p><strong>Investing $400/month feels impossible?</strong> Here's how 20-somethings actually do it:</p>
+            
+            <div class="tips-list">
+                <div class="tip-item">
+                    <strong>The side hustle:</strong> Freelancing, DoorDash on weekends, selling stuff online. Extra $500/month is very doable.
+                </div>
+                
+                <div class="tip-item">
+                    <strong>The roommate route:</strong> Living with roommates instead of alone saves $500-800/month in most cities.
+                </div>
+                
+                <div class="tip-item">
+                    <strong>The car decision:</strong> Cheap used car vs. new = $400+/month saved.
+                </div>
+                
+                <div class="tip-item">
+                    <strong>The subscription audit:</strong> Cancel everything you don't use daily. Gym, streaming services, subscriptions add up to $100-200/month.
+                </div>
+                
+                <div class="tip-item">
+                    <strong>The lunch strategy:</strong> Meal prep = $300/month saved vs eating out.
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>🎯 Your Next Steps</h3>
+            <p><strong>This Week:</strong></p>
+            <p>1. Open a Roth IRA at Fidelity, Vanguard, or Schwab (15 minutes)</p>
+            <p>2. Set up automatic monthly transfers from your checking account</p>
+            <p>3. Buy your first shares of QQQ and SPY</p>
+            <br>
+            <p><strong>This Month:</strong></p>
+            <p>4. Audit your spending and find $100 to add to monthly investments</p>
+            <p>5. If you have employer 401(k), sign up and get the full match</p>
+            <p>6. Tell one friend about your investing journey (accountability!)</p>
+        </div>
+
+        <div class="cta-box">
+            <h2>Calculate Your Exact Path</h2>
+            <p>See exactly how much you need to invest monthly and when you'll hit each milestone.</p>
+            <a href="calculator.html" class="btn">Free Calculator</a>
+            <a href="pro-calculator.html" class="btn">Pro Calculator</a>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Hold Together. Grow Together. Win Together.</strong> 💎🙌</p>
+        <p style="font-size: 12px; margin-top: 20px;">
+            Disclaimer: For educational purposes only. Not financial advice.
+        </p>
+        <p style="margin-top: 20px; font-size: 14px;">© 2025 Hodler Nation. All rights reserved.</p>
+    </footer>
+</body>
+</html>
