@@ -167,6 +167,59 @@
             line-height: 1.6;
         }
         
+        .age-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .age-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .age-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .age-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .age-emoji {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .age-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        
+        .age-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .age-amount {
+            font-size: 18px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
         .cta-section {
             background: #1e293b;
             color: white;
@@ -201,10 +254,13 @@
             .hero h1 { font-size: 36px; }
             .hero .tagline { font-size: 18px; }
             .section-title { font-size: 32px; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
         }
     </style>
 </head>
 <body>
+    <!-- Hero Section -->
     <section class="hero">
         <h1>💎 Welcome to Hodler Nation 💎</h1>
         <p class="tagline">Your Path to $1 Million by 65</p>
@@ -214,8 +270,8 @@
         </p>
         
         <div class="cta-buttons">
-            <a href="calculator.html" class="btn btn-primary">Calculate Your Path</a>
-            <a href="#features" class="btn btn-secondary">Learn More</a>
+            <a href="calculator.html" class="btn btn-primary">Free Calculator</a>
+            <a href="pro-calculator.html" class="btn btn-secondary">Pro Calculator</a>
         </div>
         
         <div class="stats">
@@ -234,6 +290,7 @@
         </div>
     </section>
 
+    <!-- Features Section -->
     <section class="features" id="features">
         <h2 class="section-title">Why Hodler Nation?</h2>
         <p class="section-subtitle">
@@ -297,15 +354,54 @@
         </div>
     </section>
 
+    <!-- Age Groups Section -->
+    <section class="age-section">
+        <h2 class="section-title">Your Age, Your Strategy</h2>
+        <p class="section-subtitle">
+            Every decade requires a different approach. Find your path below.
+        </p>
+        
+        <div class="age-grid">
+            <div class="age-card" onclick="location.href='20s-strategy.html'">
+                <div class="age-emoji">🎓</div>
+                <div class="age-title">Your 20s</div>
+                <p class="age-subtitle">The Time Advantage</p>
+                <div class="age-amount">~$250-500/month</div>
+            </div>
+            
+            <div class="age-card" onclick="location.href='30s-strategy.html'">
+                <div class="age-emoji">💼</div>
+                <div class="age-title">Your 30s</div>
+                <p class="age-subtitle">The Building Decade</p>
+                <div class="age-amount">~$500-850/month</div>
+            </div>
+            
+            <div class="age-card" onclick="location.href='40s-strategy.html'">
+                <div class="age-emoji">🎯</div>
+                <div class="age-title">Your 40s</div>
+                <p class="age-subtitle">The Catch-Up Crew</p>
+                <div class="age-amount">~$1,200-1,800/month</div>
+            </div>
+            
+            <div class="age-card" onclick="location.href='50s-strategy.html'">
+                <div class="age-emoji">🚀</div>
+                <div class="age-title">Your 50s</div>
+                <p class="age-subtitle">The Final Push</p>
+                <div class="age-amount">~$2,500-4,000/month</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
     <section class="cta-section">
         <h2>Ready to Join the Nation?</h2>
         <p>Start your journey to $1 million today. It's free, it's simple, and it works.</p>
         <div class="cta-buttons">
             <a href="calculator.html" class="btn btn-primary">Get Your Free Plan</a>
-            <a href="pro-calculator.html" class="btn btn-secondary">Try Pro Calculator</a> 
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <p><strong>Hold Together. Grow Together. Win Together.</strong> 💎🙌</p>
         <p style="font-size: 12px; margin-top: 20px;">
