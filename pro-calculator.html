@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hodler Nation Pro - Income Multiplier Calculator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .pro-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .calculator-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .section-title {
+            margin-bottom: 20px;
+            color: #1e3a8a;
+            font-size: 24px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-group input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+        }
+        
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .info-box-title {
+            font-weight: bold;
+            color: #0c4a6e;
+            margin-bottom: 5px;
+        }
+        
+        .info-box-text {
+            font-size: 14px;
+            color: #0c4a6e;
+        }
+        
+        .allocation-box {
+            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .allocation-box h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .allocation-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .big-result {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .big-result.warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        .big-result-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .big-result-value {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .big-result-detail {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #7c3aed;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+        
+        .milestones {
+            margin-top: 20px;
+        }
+        
+        .milestone {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #7c3aed;
+        }
+        
+        .milestone-info {
+            flex: 1;
+        }
+        
+        .milestone-amount {
+            font-weight: bold;
+            font-size: 18px;
+            color: #1e293b;
+        }
+        
+        .milestone-detail {
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .milestone-emoji {
+            font-size: 24px;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 968px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="header">
+            <div class="pro-badge">PRO VERSION</div>
+            <h1>💎 Hodler Nation Pro 💎</h1>
+            <p>Income Multiplier Goal Calculator</p>
+        </div>
+
+        <div class="calculator-grid">
+            <!-- Left Column: Inputs -->
+            <div class="calculator-card">
+                <h2 class="section-title">Your Information</h2>
+                
+                <div class="input-group">
+                    <label>Current Age: <span id="age-value">30</span></label>
+                    <input type="range" id="age" min="20" max="60" value="30">
+                    <div class="slider-labels">
+                        <span>20</span>
+                        <span>40</span>
+                        <span>60</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Annual Salary: <span id="salary-value">$60,000</span></label>
+                    <input type="range" id="salary" min="30000" max="200000" step="5000" value="60000">
+                    <div class="slider-labels">
+                        <span>$30K</span>
+                        <span>$115K</span>
+                        <span>$200K</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Current Savings: <span id="savings-value">$10,000</span></label>
+                    <input type="range" id="savings" min="0" max="200000" step="5000" value="10000">
+                    <div class="slider-labels">
+                        <span>$0</span>
+                        <span>$100K</span>
+                        <span>$200K</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Income Multiplier: <span id="multiplier-value">10</span>x</label>
+                    <input type="range" id="multiplier" min="5" max="25" step="1" value="10">
+                    <div class="slider-labels">
+                        <span>5x</span>
+                        <span>15x</span>
+                        <span>25x</span>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-top: 4px;">
+                        Target: <span id="target-amount">$600,000</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Retirement Age: <span id="retirement-value">67</span></label>
+                    <input type="range" id="retirement-age" min="55" max="75" value="67">
+                    <div class="slider-labels">
+                        <span>55</span>
+                        <span>65</span>
+                        <span>75</span>
+                    </div>
+                </div>
+
+                <div class="allocation-box">
+                    <h3>Recommended Allocation</h3>
+                    <div class="allocation-value" id="allocation"></div>
+                    <div style="font-size: 14px; opacity: 0.9;" id="expected-return"></div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">The Income Multiplier Method</div>
+                    <div class="info-box-text" id="info-text"></div>
+                </div>
+            </div>
+
+            <!-- Right Column: Results -->
+            <div class="calculator-card">
+                <h2 class="section-title">Your Personalized Plan</h2>
+
+                <div class="big-result" id="monthly-card">
+                    <div class="big-result-label">Required Monthly Investment</div>
+                    <div class="big-result-value" id="required-monthly">$0</div>
+                    <div class="big-result-detail" id="savings-rate"></div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">Final Value at <span id="final-age"></span></div>
+                        <div class="stat-value" id="final-value">$0</div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-label">Total Gains</div>
+                        <div class="stat-value" id="total-gains">$0</div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-label">Annual Withdrawal (4% Rule)</div>
+                        <div class="stat-value" id="withdrawal-amount">$0</div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-label">Years to Invest</div>
+                        <div class="stat-value" id="years-to-invest">0</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 20px 0 15px 0; color: #1e3a8a;">Salary Multiple Milestones</h3>
+                <div class="milestones" id="milestones"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Hold Together. Grow Together. Win Together. 💎🙌</p>
+            <p style="font-size: 12px;">Disclaimer: For educational purposes only. Not financial advice.</p>
+        </div>
+    </div>
+
+    <script>
+        const ageInput = document.getElementById('age');
+        const salaryInput = document.getElementById('salary');
+        const savingsInput = document.getElementById('savings');
+        const multiplierInput = document.getElementById('multiplier');
+        const retirementAgeInput = document.getElementById('retirement-age');
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            }).format(value);
+        }
+
+        function getAllocation(age) {
+            if (age < 30) return { spy: 20, qqq: 80, return: 0.131 };
+            if (age < 40) return { spy: 30, qqq: 70, return: 0.126 };
+            if (age < 50) return { spy: 50, qqq: 50, return: 0.120 };
+            if (age < 60) return { spy: 60, qqq: 40, return: 0.117 };
+            return { spy: 70, qqq: 30, return: 0.114 };
+        }
+
+        function calculate() {
+            const age = parseInt(ageInput.value);
+            const salary = parseInt(salaryInput.value);
+            const savings = parseInt(savingsInput.value);
+            const multiplier = parseInt(multiplierInput.value);
+            const retirementAge = parseInt(retirementAgeInput.value);
+
+            document.getElementById('age-value').textContent = age;
+            document.getElementById('salary-value').textContent = formatCurrency(salary);
+            document.getElementById('savings-value').textContent = formatCurrency(savings);
+            document.getElementById('multiplier-value').textContent = multiplier;
+            document.getElementById('retirement-value').textContent = retirementAge;
+
+            const targetAmount = salary * multiplier;
+            document.getElementById('target-amount').textContent = formatCurrency(targetAmount);
+
+            const allocation = getAllocation(age);
+            document.getElementById('allocation').textContent = 
+                `${allocation.spy}% SPY / ${allocation.qqq}% QQQ`;
+            document.getElementById('expected-return').textContent = 
+                `Expected Return: ${(allocation.return * 100).toFixed(1)}% annually`;
+
+            const yearsToRetirement = retirementAge - age;
+            const monthlyRate = allocation.return / 12;
+            const months = yearsToRetirement * 12;
+
+            const futureOfSavings = savings * Math.pow(1 + monthlyRate, months);
+            const neededFromContributions = targetAmount - futureOfSavings;
+
+            let requiredMonthly = 0;
+            if (neededFromContributions > 0) {
+                requiredMonthly = neededFromContributions / 
+                    ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+            }
+            requiredMonthly = Math.max(0, Math.round(requiredMonthly));
+
+            const finalValue = futureOfSavings + (requiredMonthly * 
+                ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate));
+            const totalContributed = savings + (requiredMonthly * months);
+            const totalGains = finalValue - totalContributed;
+            const withdrawalAmount = Math.round(targetAmount * 0.04);
+            const savingsRate = ((requiredMonthly * 12) / salary * 100).toFixed(1);
+
+            document.getElementById('required-monthly').textContent = formatCurrency(requiredMonthly);
+            document.getElementById('savings-rate').textContent = 
+                `That's ${savingsRate}% of your annual salary`;
+            document.getElementById('final-value').textContent = formatCurrency(Math.round(finalValue));
+            document.getElementById('total-gains').textContent = formatCurrency(Math.round(totalGains));
+            document.getElementById('withdrawal-amount').textContent = formatCurrency(withdrawalAmount);
+            document.getElementById('years-to-invest').textContent = `${yearsToRetirement} years`;
+            document.getElementById('final-age').textContent = retirementAge;
+
+            const monthlyCard = document.getElementById('monthly-card');
+            if (requiredMonthly > salary / 2) {
+                monthlyCard.className = 'big-result warning';
+            } else {
+                monthlyCard.className = 'big-result';
+            }
+
+            document.getElementById('info-text').textContent = 
+                `Using the 4% withdrawal rule, ${multiplier}x your salary (${formatCurrency(targetAmount)}) will generate ${formatCurrency(withdrawalAmount)}/year in retirement.`;
+
+            // Calculate milestones
+            const milestoneMultiples = [1, 2, 3, 4, 6, 8, 10];
+            let balance = savings;
+            let month = 0;
+            const milestonesHtml = [];
+
+            milestoneMultiples.forEach(mult => {
+                const milestoneAmount = salary * mult;
+                
+                // Find when we hit this milestone
+                while (balance < milestoneAmount && month < months) {
+                    month++;
+                    balance = balance * (1 + monthlyRate) + requiredMonthly;
+                }
+
+                const years = (month / 12).toFixed(1);
+                const ageAtMilestone = age + Math.round(month / 12);
+                const emoji = mult === 1 ? '🥉' : mult === 2 ? '🥈' : mult === 3 ? '🥇' : 
+                             mult === 4 ? '💎' : mult === 6 ? '👑' : mult === 8 ? '🏆' : '🎖️';
+
+                if (month < months) {
+                    milestonesHtml.push(`
+                        <div class="milestone">
+                            <div class="milestone-info">
+                                <div class="milestone-amount">${mult}x Salary: ${formatCurrency(milestoneAmount)}</div>
+                                <div class="milestone-detail">In ${years} years (Age ${ageAtMilestone})</div>
+                            </div>
+                            <div class="milestone-emoji">${emoji}</div>
+                        </div>
+                    `);
+                }
+            });
+
+            document.getElementById('milestones').innerHTML = milestonesHtml.join('');
+        }
+
+        ageInput.addEventListener('input', calculate);
+        salaryInput.addEventListener('input', calculate);
+        savingsInput.addEventListener('input', calculate);
+        multiplierInput.addEventListener('input', calculate);
+        retirementAgeInput.addEventListener('input', calculate);
+
+        calculate();
+    </script>
+</body>
+</html>
