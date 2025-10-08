@@ -3,344 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hodler Nation - Calculator</title>
+    <title>Hodler Nation - Retirement Calculator</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #4c1d95 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
-        .container { max-width: 800px; margin: 0 auto; }
-        
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            color: white;
+            margin-bottom: 40px;
         }
-        
+
         .header h1 {
-            font-size: 42px;
+            color: white;
+            font-size: 3rem;
             margin-bottom: 10px;
-            font-weight: bold;
         }
-        
+
         .header p {
-            font-size: 20px;
-            opacity: 0.9;
+            color: #e9d5ff;
+            font-size: 1.25rem;
         }
-        
+
         .calculator-card {
             background: white;
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
         }
-        
-        .section-title {
-            margin-bottom: 20px;
-            color: #667eea;
-            font-size: 24px;
-        }
-        
-        .input-group {
-            margin-bottom: 20px;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .input-group input[type="range"] {
-            width: 100%;
-            height: 8px;
-            border-radius: 5px;
-        }
-        
-        .slider-labels {
+
+        .calculator-title {
+            font-size: 1.75rem;
+            color: #1f2937;
+            margin-bottom: 30px;
             display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #666;
-            margin-top: 4px;
+            align-items: center;
+            gap: 10px;
         }
-        
-        .allocation-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.125rem;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #7c3aed;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            background: #7c3aed;
             color: white;
-        }
-        
-        .allocation-box h3 { margin-bottom: 10px; }
-        
-        .allocation-value {
-            font-size: 24px;
+            font-size: 1.25rem;
             font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
             margin-bottom: 30px;
         }
-        
-        .result-card {
-            border-radius: 12px;
-            padding: 20px;
-            color: white;
+
+        .calculate-btn:hover {
+            background: #6d28d9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
         }
-        
-        .result-card.success { background: #10b981; }
-        .result-card.warning { background: #f59e0b; }
-        .result-card.purple { background: #8b5cf6; }
-        .result-card.blue { background: #3b82f6; }
-        
+
+        .results {
+            border-top: 2px solid #e5e7eb;
+            padding-top: 30px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .result-box {
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .result-box.purple {
+            background: #f3e8ff;
+        }
+
+        .result-box.green {
+            background: #d1fae5;
+        }
+
+        .result-box.red {
+            background: #fee2e2;
+        }
+
+        .result-box.gray {
+            background: #f3f4f6;
+        }
+
         .result-label {
-            font-size: 14px;
-            opacity: 0.9;
+            font-size: 0.875rem;
+            font-weight: 600;
             margin-bottom: 5px;
         }
-        
+
+        .result-box.purple .result-label {
+            color: #6d28d9;
+        }
+
+        .result-box.green .result-label {
+            color: #047857;
+        }
+
+        .result-box.red .result-label {
+            color: #dc2626;
+        }
+
         .result-value {
-            font-size: 32px;
+            font-size: 2.5rem;
             font-weight: bold;
         }
-        
+
+        .result-box.purple .result-value {
+            color: #4c1d95;
+        }
+
+        .result-box.green .result-value {
+            color: #065f46;
+        }
+
+        .result-box.red .result-value {
+            color: #991b1b;
+        }
+
         .result-detail {
-            font-size: 14px;
-            margin-top: 8px;
+            font-size: 0.875rem;
+            margin-top: 10px;
         }
-        
-        .cta-box {
-            margin-top: 30px;
-            padding: 25px;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            border-radius: 12px;
-            color: white;
-            text-align: center;
+
+        .result-box.green .result-detail {
+            color: #047857;
         }
-        
-        .cta-box h3 {
-            margin-bottom: 10px;
-            font-size: 24px;
+
+        .result-box.red .result-detail {
+            color: #dc2626;
         }
-        
-        .cta-box p {
-            margin-bottom: 15px;
-            opacity: 0.9;
+
+        .result-box.gray .result-detail {
+            color: #374151;
         }
-        
-        .cta-button {
+
+        .cta-card {
             background: white;
-            color: #d97706;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        .cta-button:hover {
-            transform: scale(1.05);
-            transition: transform 0.2s;
-        }
-        
-        .footer {
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
-            color: white;
-            padding: 20px;
-            opacity: 0.8;
-        }
-        
-        .footer p { margin-bottom: 10px; }
-        
-        .back-link {
-            display: inline-block;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 8px;
         }
-        
-        .back-link:hover {
-            background: rgba(255,255,255,0.3);
+
+        .cta-card h3 {
+            font-size: 1.75rem;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .cta-card p {
+            color: #6b7280;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .cta-btn {
+            background: #7c3aed;
+            color: white;
+            font-size: 1.125rem;
+            font-weight: bold;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: #6d28d9;
+        }
+
+        .disclaimer {
+            text-align: center;
+            color: #e9d5ff;
+            font-size: 0.75rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .calculator-card {
+                padding: 25px;
+            }
+
+            .result-value {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-link">← Back to Home</a>
-        
+        <!-- Header -->
         <div class="header">
-            <h1>💎 Hodler Nation 💎</h1>
-            <p>Your Path to $1 Million by 65</p>
+            <h1>💰 Hodler Nation</h1>
+            <p>Find out exactly how much to invest to retire a millionaire</p>
         </div>
 
+        <!-- Calculator Card -->
         <div class="calculator-card">
-            <div>
-                <h2 class="section-title">Your Information</h2>
-                
-                <div class="input-group">
-                    <label>Current Age: <span id="age-value">30</span></label>
-                    <input type="range" id="age" min="20" max="60" value="30">
-                    <div class="slider-labels">
-                        <span>20</span>
-                        <span>40</span>
-                        <span>60</span>
-                    </div>
-                </div>
+            <h2 class="calculator-title">
+                📈 Your Retirement Calculator
+            </h2>
 
-                <div class="input-group">
-                    <label>Current Savings: <span id="savings-value">$5,000</span></label>
-                    <input type="range" id="savings" min="0" max="100000" step="1000" value="5000">
-                    <div class="slider-labels">
-                        <span>$0</span>
-                        <span>$50K</span>
-                        <span>$100K</span>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label>Monthly Investment: <span id="monthly-value">$500</span></label>
-                    <input type="range" id="monthly" min="50" max="5000" step="50" value="500">
-                    <div class="slider-labels">
-                        <span>$50</span>
-                        <span>$2,500</span>
-                        <span>$5,000</span>
-                    </div>
-                </div>
+            <!-- Input Fields -->
+            <div class="input-group">
+                <label class="input-label">📅 Current Age</label>
+                <input type="number" id="age" class="input-field" value="32" min="18" max="70">
             </div>
 
-            <div class="allocation-box">
-                <h3>Recommended Allocation</h3>
-                <div class="allocation-value" id="allocation"></div>
-                <div id="expected-return"></div>
+            <div class="input-group">
+                <label class="input-label">💵 Current Retirement Savings ($)</label>
+                <input type="number" id="currentSavings" class="input-field" value="10000" min="0" step="1000">
             </div>
 
-            <div class="results-grid">
-                <div class="result-card" id="final-card">
-                    <div class="result-label">At Age 65</div>
-                    <div class="result-value" id="final-value"></div>
-                    <div class="result-detail" id="goal-status"></div>
-                </div>
-
-                <div class="result-card purple">
-                    <div class="result-label">Total Gains</div>
-                    <div class="result-value" id="gains-value"></div>
-                    <div class="result-detail">💰 From compound interest</div>
-                </div>
-
-                <div class="result-card blue">
-                    <div class="result-label">You Contribute</div>
-                    <div class="result-value" id="contributed-value"></div>
-                    <div class="result-detail" id="years-detail"></div>
-                </div>
+            <div class="input-group">
+                <label class="input-label">📈 Monthly Investment Goal ($)</label>
+                <input type="number" id="monthlyContribution" class="input-field" value="500" min="0" step="50" placeholder="How much can you invest monthly?">
             </div>
 
-            <div class="cta-box">
-                <h3>Want Custom Goals?</h3>
-                <p>Upgrade to Pro to set income multiplier goals (10x, 15x, 20x salary), track multiple goals, and get advanced analytics!</p>
-                <button class="cta-button" onclick="alert('Pro version coming soon! Stay tuned.')">Try Pro Free for 14 Days</button>
+            <div class="input-group">
+                <label class="input-label">🎯 Target Retirement Age</label>
+                <input type="number" id="targetAge" class="input-field" value="65" min="18" max="100">
+            </div>
+
+            <!-- Calculate Button -->
+            <button class="calculate-btn" onclick="calculateRetirement()">
+                Calculate My Path to $1M
+            </button>
+
+            <!-- Results (Hidden Initially) -->
+            <div id="results" class="results">
+                <h3 class="results-title">Your Numbers:</h3>
+
+                <!-- Required Monthly -->
+                <div class="result-box purple">
+                    <div class="result-label">TO REACH $1M BY AGE <span id="targetAgeDisplay"></span>, YOU NEED TO INVEST:</div>
+                    <div class="result-value" id="requiredMonthly"></div>
+                </div>
+
+                <!-- Current Trajectory -->
+                <div id="trajectoryBox" class="result-box">
+                    <div class="result-label" id="trajectoryLabel"></div>
+                    <div class="result-value" id="totalAtRetirement"></div>
+                    <div class="result-detail" id="trajectoryDetail"></div>
+                </div>
+
+                <!-- Time Remaining -->
+                <div class="result-box gray">
+                    <div class="result-detail">
+                        <strong id="yearsToRetire"></strong> until retirement
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="footer">
-            <p>Hold Together. Grow Together. Win Together. 💎🙌</p>
-            <p style="font-size: 12px;">Disclaimer: This is for educational purposes only. Not financial advice.</p>
+        <!-- CTA Card -->
+        <div class="cta-card">
+            <h3>Want help staying on track?</h3>
+            <p>Get weekly check-ins, progress tracking, and accountability to actually reach your goal.</p>
+            <button class="cta-btn">Get Started Free</button>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            Assumes 10% average annual return (S&P 500 historical average). 
+            This is educational only, not financial advice.
         </div>
     </div>
 
     <script>
-        const ageInput = document.getElementById('age');
-        const savingsInput = document.getElementById('savings');
-        const monthlyInput = document.getElementById('monthly');
-        
-        const ageValue = document.getElementById('age-value');
-        const savingsValue = document.getElementById('savings-value');
-        const monthlyValue = document.getElementById('monthly-value');
-        
-        function formatCurrency(value) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-            }).format(value);
-        }
-        
-        function getAllocation(age) {
-            if (age < 30) return { spy: 20, qqq: 80, return: 0.131 };
-            if (age < 40) return { spy: 30, qqq: 70, return: 0.126 };
-            if (age < 50) return { spy: 50, qqq: 50, return: 0.120 };
-            if (age < 60) return { spy: 60, qqq: 40, return: 0.117 };
-            return { spy: 70, qqq: 30, return: 0.114 };
-        }
-        
-        function calculate() {
-            const age = parseInt(ageInput.value);
-            const currentSavings = parseInt(savingsInput.value);
-            const monthlyContribution = parseInt(monthlyInput.value);
-            
-            ageValue.textContent = age;
-            savingsValue.textContent = formatCurrency(currentSavings);
-            monthlyValue.textContent = formatCurrency(monthlyContribution);
-            
-            const allocation = getAllocation(age);
-            document.getElementById('allocation').textContent = 
-                `${allocation.spy}% SPY / ${allocation.qqq}% QQQ`;
-            document.getElementById('expected-return').textContent = 
-                `Expected Return: ${(allocation.return * 100).toFixed(1)}% annually`;
-            
-            const retirementAge = 65;
-            const yearsToRetirement = retirementAge - age;
-            const monthlyRate = allocation.return / 12;
-            const months = yearsToRetirement * 12;
-            
-            const futureOfSavings = currentSavings * Math.pow(1 + monthlyRate, months);
-            const futureOfContributions = monthlyContribution * 
-                ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
-            
-            const finalValue = Math.round(futureOfSavings + futureOfContributions);
-            const totalContributed = Math.round(currentSavings + (monthlyContribution * months));
-            const totalGains = finalValue - totalContributed;
-            const reachesGoal = finalValue >= 1000000;
-            
-            document.getElementById('final-value').textContent = formatCurrency(finalValue);
-            document.getElementById('gains-value').textContent = formatCurrency(totalGains);
-            document.getElementById('contributed-value').textContent = formatCurrency(totalContributed);
-            document.getElementById('years-detail').textContent = `Over ${yearsToRetirement} years`;
-            
-            const finalCard = document.getElementById('final-card');
-            if (reachesGoal) {
-                finalCard.className = 'result-card success';
-                document.getElementById('goal-status').textContent = '✅ You will reach $1M!';
-            } else {
-                finalCard.className = 'result-card warning';
-                document.getElementById('goal-status').textContent = 
-                    `⚠️ Short by ${formatCurrency(1000000 - finalValue)}`;
+        function calculateRetirement() {
+            // Get input values
+            const age = parseInt(document.getElementById('age').value);
+            const currentSavings = parseFloat(document.getElementById('currentSavings').value);
+            const monthlyContribution = parseFloat(document.getElementById('monthlyContribution').value);
+            const targetAge = parseInt(document.getElementById('targetAge').value);
+
+            // Calculate
+            const yearsToRetire = targetAge - age;
+            const monthsToRetire = yearsToRetire * 12;
+            const targetAmount = 1000000; // $1M goal
+            const annualReturn = 0.10; // 10% average return
+            const monthlyReturn = Math.pow(1 + annualReturn, 1/12) - 1;
+
+            // Future value of current savings
+            const futureValueOfSavings = currentSavings * Math.pow(1 + annualReturn, yearsToRetire);
+
+            // Amount still needed
+            const amountNeeded = targetAmount - futureValueOfSavings;
+
+            // Required monthly contribution
+            const requiredMonthly = amountNeeded / 
+                (((Math.pow(1 + monthlyReturn, monthsToRetire) - 1) / monthlyReturn));
+
+            // Future value with user's contribution
+            const futureValueOfContributions = monthlyContribution * 
+                (((Math.pow(1 + monthlyReturn, monthsToRetire) - 1) / monthlyReturn));
+
+            const totalFutureValue = futureValueOfSavings + futureValueOfContributions;
+
+            // Determine if on track
+            const onTrack = totalFutureValue >= targetAmount;
+            const shortfall = Math.max(0, targetAmount - totalFutureValue);
+            const excess = Math.max(0, totalFutureValue - targetAmount);
+
+            // Format currency
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                }).format(amount);
             }
+
+            // Update UI
+            document.getElementById('targetAgeDisplay').textContent = targetAge;
+            document.getElementById('requiredMonthly').textContent = formatCurrency(Math.max(0, requiredMonthly)) + '/month';
+            document.getElementById('yearsToRetire').textContent = yearsToRetire + ' years';
+
+            // Trajectory box
+            const trajectoryBox = document.getElementById('trajectoryBox');
+            const trajectoryLabel = document.getElementById('trajectoryLabel');
+            const totalAtRetirementEl = document.getElementById('totalAtRetirement');
+            const trajectoryDetail = document.getElementById('trajectoryDetail');
+
+            trajectoryLabel.textContent = `AT YOUR PLANNED RATE (${formatCurrency(monthlyContribution)}/month):`;
+            totalAtRetirementEl.textContent = `${formatCurrency(totalFutureValue)} by age ${targetAge}`;
+
+            if (onTrack) {
+                trajectoryBox.className = 'result-box green';
+                trajectoryDetail.textContent = `Great job! You're on track to exceed your goal by ${formatCurrency(excess)}.`;
+            } else {
+                trajectoryBox.className = 'result-box red';
+                trajectoryDetail.textContent = `You're short by ${formatCurrency(shortfall)}. Increase monthly investment by ${formatCurrency(requiredMonthly - monthlyContribution)}.`;
+            }
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-        
-        ageInput.addEventListener('input', calculate);
-        savingsInput.addEventListener('input', calculate);
-        monthlyInput.addEventListener('input', calculate);
-        
-        calculate();
     </script>
 </body>
 </html>
