@@ -3,724 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hodler Nation - Retirement Calculator</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Firebase from unpkg CDN (alternative) -->
-    <script src="https://unpkg.com/firebase@8.10.1/firebase-app.js"></script>
-    <script src="https://unpkg.com/firebase@8.10.1/firebase-firestore.js"></script>
-    
+    <meta name="description" content="Join Hodler Nation - Build your path to $1 million by 65 through ETF investing. Free calculators, community support, and proven strategies.">
+    <title>Hodler Nation - Your Path to $1 Million by 65</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #4c1d95 100%);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
             min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            color: white;
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: #e9d5ff;
-            font-size: 1.2rem;
-        }
-
-        .calculator-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
-        }
-
-        .calculator-title {
-            font-size: 1.75rem;
-            color: #1f2937;
-            margin-bottom: 30px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 8px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px;
-            font-size: 1.1rem;
-            border: 2px solid #d1d5db;
-            border-radius: 10px;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #7c3aed;
-        }
-
-        .calculate-btn {
-            width: 100%;
-            background: #7c3aed;
-            color: white;
-            font-size: 1.25rem;
-            font-weight: bold;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 20px 0;
-        }
-
-        .calculate-btn:hover {
-            background: #6d28d9;
-            transform: translateY(-2px);
-            transition: all 0.3s;
-        }
-
-        .results {
-            display: none;
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 2px solid #e5e7eb;
-        }
-
-        .results.show {
-            display: block;
-        }
-
-        .results-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #1f2937;
-            margin-bottom: 20px;
-        }
-
-        .result-box {
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        .result-box.green {
-            background: #d1fae5;
-        }
-
-        .result-box.red {
-            background: #fee2e2;
-        }
-
-        .result-box.purple {
-            background: #f3e8ff;
-        }
-
-        .result-box.gray {
-            background: #f3f4f6;
-        }
-
-        .result-label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .result-box.green .result-label {
-            color: #047857;
-        }
-
-        .result-box.red .result-label {
-            color: #dc2626;
-        }
-
-        .result-box.purple .result-label {
-            color: #6d28d9;
-        }
-
-        .result-box.gray .result-label {
-            color: #374151;
-        }
-
-        .result-value {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        .result-box.green .result-value {
-            color: #065f46;
-        }
-
-        .result-box.red .result-value {
-            color: #991b1b;
-        }
-
-        .result-box.purple .result-value {
-            color: #4c1d95;
-        }
-
-        .result-box.gray .result-value {
-            color: #374151;
-        }
-
-        .result-detail {
-            font-size: 0.875rem;
-            margin-top: 10px;
-        }
-
-        .chart-container {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f9fafb;
-            border-radius: 10px;
-            height: 400px;
-        }
-
-        .email-capture {
-            margin-top: 30px;
-            padding: 30px;
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .email-capture h3 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .email-capture p {
-            color: #e9d5ff;
-            margin-bottom: 20px;
-        }
-
-        .email-form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            max-width: 400px;
-            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
         }
-
-        .email-input {
-            padding: 12px;
-            font-size: 1rem;
-            border: 2px solid white;
-            border-radius: 8px;
-            background: white;
-        }
-
-        .email-input:focus {
-            outline: none;
-            border-color: #a78bfa;
-        }
-
-        .email-btn {
-            background: white;
-            color: #7c3aed;
-            font-size: 1.1rem;
+        
+        .hero h1 {
+            font-size: 56px;
             font-weight: bold;
-            padding: 12px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .hero .tagline {
+            font-size: 24px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .hero .subtitle {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: bold;
             border: none;
             border-radius: 8px;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-
-        .email-btn:hover {
-            background: #f3f4f6;
+        
+        .btn:hover {
             transform: translateY(-2px);
-            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-
-        .email-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        
+        .btn-primary {
+            background: white;
+            color: #667eea;
         }
-
-        .success-message {
-            display: none;
-            background: #d1fae5;
-            color: #065f46;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-weight: 600;
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
         }
-
-        .success-message.show {
-            display: block;
+        
+        .stats {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px;
         }
-
-        .cta-section {
-            background: #f9fafb;
-            padding: 30px;
-            border-radius: 10px;
+        
+        .stat {
             text-align: center;
         }
-
-        .cta-section h3 {
-            font-size: 1.5rem;
-            color: #1f2937;
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            display: block;
+        }
+        
+        .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            padding: 30px;
+            border-radius: 16px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+        
+        .feature-description {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        .age-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .age-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .age-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .age-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .age-emoji {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .age-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        
+        .age-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .age-amount {
+            font-size: 18px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .cta-section {
+            background: #1e293b;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.8;
             margin-bottom: 10px;
         }
-
-        .cta-section p {
-            color: #6b7280;
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-
-        .cta-btn {
-            background: #7c3aed;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: bold;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .cta-btn:hover {
-            background: #6d28d9;
-        }
-
+        
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .calculator-card {
-                padding: 25px;
-            }
-            
-            .chart-container {
-                height: 300px;
-            }
+            .hero h1 { font-size: 36px; }
+            .hero .tagline { font-size: 18px; }
+            .section-title { font-size: 32px; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>💰 Hodler Nation</h1>
-            <p>Calculate your path to $1 million</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>💎 Welcome to Hodler Nation 💎</h1>
+        <p class="tagline">Your Path to $1 Million by 65</p>
+        <p class="subtitle">
+            Join thousands of Hodlers building wealth through simple ETF investing. 
+            No day trading. No speculation. Just proven strategies and community support.
+        </p>
+        
+        <div class="cta-buttons">
+            <a href="calculator.html" class="btn btn-primary">Free Calculator</a>
+            <a href="pro-calculator.html" class="btn btn-secondary">Pro Calculator</a>
         </div>
-
-        <div class="calculator-card">
-            <h2 class="calculator-title">📈 Retirement Calculator</h2>
-
-            <div class="input-group">
-                <label class="input-label">📅 Current Age</label>
-                <input type="number" id="age" class="input-field" value="32" min="18" max="70">
+        
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number">50,000+</span>
+                <span class="stat-label">Active Hodlers</span>
             </div>
-
-            <div class="input-group">
-                <label class="input-label">💵 Current Savings ($)</label>
-                <input type="number" id="savings" class="input-field" value="10000" min="0" step="1000">
+            <div class="stat">
+                <span class="stat-number">$2.4B+</span>
+                <span class="stat-label">Community Portfolio Value</span>
             </div>
-
-            <div class="input-group">
-                <label class="input-label">📈 Monthly Investment ($)</label>
-                <input type="number" id="monthly" class="input-field" value="500" min="0" step="50">
-            </div>
-
-            <div class="input-group">
-                <label class="input-label">🎯 Retirement Age</label>
-                <input type="number" id="retireAge" class="input-field" value="65" min="18" max="100">
-            </div>
-
-            <div class="input-group">
-                <label class="input-label">📊 Expected Return Rate</label>
-                <select id="returnRate" class="input-field">
-                    <option value="0.04">4% - Very Conservative (CDs/Bonds)</option>
-                    <option value="0.06">6% - Conservative (Bond Heavy)</option>
-                    <option value="0.08">8% - Moderate (Balanced Portfolio)</option>
-                    <option value="0.10" selected>10% - S&P 500 Historical Average</option>
-                </select>
-            </div>
-
-            <button class="calculate-btn" onclick="calculate()">Calculate My Path to $1M</button>
-
-            <div id="results" class="results">
-                <h3 class="results-title">Your Results:</h3>
-
-                <div id="trajectoryBox" class="result-box">
-                    <div class="result-label" id="trajectoryLabel"></div>
-                    <div class="result-value" id="trajectoryValue"></div>
-                    <div class="result-detail" id="trajectoryDetail"></div>
-                </div>
-
-                <div class="result-box purple">
-                    <div class="result-label" id="goalLabel"></div>
-                    <div class="result-value" id="goalValue"></div>
-                </div>
-
-                <div class="result-box gray">
-                    <div class="result-label">⏰ Time Until Retirement</div>
-                    <div class="result-value" id="yearsRemaining"></div>
-                </div>
-
-                <div class="chart-container">
-                    <canvas id="growthChart"></canvas>
-                </div>
-
-                <div class="email-capture">
-                    <h3>📧 Get Your Personalized Plan</h3>
-                    <p>Enter your email to receive a detailed retirement plan & weekly accountability check-ins</p>
-                    <div class="email-form">
-                        <input type="text" id="userName" class="email-input" placeholder="Your Name">
-                        <input type="email" id="userEmail" class="email-input" placeholder="your@email.com">
-                        <button class="email-btn" id="emailBtn" onclick="captureEmail()">Email Me My Plan</button>
-                        <div id="successMessage" class="success-message">
-                            ✅ Success! Check your email for your personalized retirement plan.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cta-section">
-                <h3>Want help staying on track?</h3>
-                <p>Get weekly check-ins, progress tracking, and accountability to actually reach your goal</p>
-                <button class="cta-btn">Get Started Free</button>
+            <div class="stat">
+                <span class="stat-number">847</span>
+                <span class="stat-label">Million Dollar Hodlers</span>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script>
-        // Wait for Firebase to be available
-        let db = null;
-        let firebaseInitialized = false;
-
-        function initFirebase() {
-            try {
-                if (typeof firebase === 'undefined') {
-                    console.error('❌ Firebase not available yet, retrying...');
-                    setTimeout(initFirebase, 100);
-                    return;
-                }
-
-                // Check if already initialized
-                if (!firebase.apps || firebase.apps.length === 0) {
-                    // Firebase Configuration
-                    const firebaseConfig = {
-                        apiKey: "AIzaSyDR3Y5RgWTMqFW8qCl4ht1WmBMxILUA8n0",
-                        authDomain: "hodler-nation.firebaseapp.com",
-                        projectId: "hodler-nation",
-                        storageBucket: "hodler-nation.firebasestorage.app",
-                        messagingSenderId: "141869525777",
-                        appId: "1:141869525777:web:0d9c467b548a8eba12fab0"
-                    };
-
-                    firebase.initializeApp(firebaseConfig);
-                }
-                
-                db = firebase.firestore();
-                firebaseInitialized = true;
-                console.log('✅ Firebase initialized successfully!');
-                
-            } catch (error) {
-                console.error('❌ Firebase initialization error:', error);
-            }
-        }
-
-        // Start initialization when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initFirebase);
-        } else {
-            initFirebase();
-        }
-
-        let chart = null;
-        let currentCalculation = null;
-
-        function calculate() {
-            // Get values
-            const age = parseInt(document.getElementById('age').value);
-            const savings = parseFloat(document.getElementById('savings').value);
-            const monthly = parseFloat(document.getElementById('monthly').value);
-            const retireAge = parseInt(document.getElementById('retireAge').value);
-            const returnRate = parseFloat(document.getElementById('returnRate').value);
-
-            // Calculate
-            const years = retireAge - age;
-            const months = years * 12;
-            const monthlyRate = Math.pow(1 + returnRate, 1/12) - 1;
-
-            // Future value of current savings
-            const futureSavings = savings * Math.pow(1 + returnRate, years);
-
-            // Future value of monthly contributions
-            const futureContributions = monthly * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
-
-            // Total
-            const total = futureSavings + futureContributions;
-
-            // Required monthly for $1M
-            const needed = 1000000 - futureSavings;
-            const requiredMonthly = needed / ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
-
-            // Format
-            const formatter = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 0
-            });
-
-            // Update UI
-            const trajectoryBox = document.getElementById('trajectoryBox');
-            const onTrack = total >= 1000000;
-
-            document.getElementById('trajectoryLabel').textContent = 
-                `AT ${formatter.format(monthly)}/MONTH (${(returnRate * 100).toFixed(0)}% RETURN):`;
-            document.getElementById('trajectoryValue').textContent = 
-                `${formatter.format(total)} by age ${retireAge}`;
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Why Hodler Nation?</h2>
+        <p class="section-subtitle">
+            We're not just a calculator. We're a movement of everyday people building generational wealth.
+        </p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Personalized Plans</h3>
+                <p class="feature-description">
+                    Get exact monthly investment amounts based on your age, income, and goals. 
+                    No guesswork, just actionable numbers.
+                </p>
+            </div>
             
-            if (onTrack) {
-                trajectoryBox.className = 'result-box green';
-                const excess = total - 1000000;
-                document.getElementById('trajectoryDetail').textContent = 
-                    `✅ You're on track! Exceeds goal by ${formatter.format(excess)}`;
-            } else {
-                trajectoryBox.className = 'result-box red';
-                const shortfall = 1000000 - total;
-                document.getElementById('trajectoryDetail').textContent = 
-                    `⚠️ Short by ${formatter.format(shortfall)}. Need ${formatter.format(Math.max(0, requiredMonthly - monthly))} more per month.`;
-            }
-
-            document.getElementById('goalLabel').textContent = 
-                `TO REACH $1M BY AGE ${retireAge} AT ${(returnRate * 100).toFixed(0)}%:`;
-            document.getElementById('goalValue').textContent = 
-                `${formatter.format(Math.max(0, requiredMonthly))}/month`;
-
-            document.getElementById('yearsRemaining').textContent = 
-                `${years} years`;
-
-            // Store calculation for email
-            currentCalculation = {
-                age: age,
-                savings: savings,
-                monthly: monthly,
-                retireAge: retireAge,
-                returnRate: returnRate,
-                total: total,
-                requiredMonthly: requiredMonthly,
-                years: years,
-                onTrack: onTrack
-            };
-
-            // Show results
-            document.getElementById('results').classList.add('show');
-
-            // Create chart
-            createChart(age, retireAge, savings, monthly, returnRate);
-        }
-
-        async function captureEmail() {
-            const name = document.getElementById('userName').value.trim();
-            const email = document.getElementById('userEmail').value.trim();
-            const btn = document.getElementById('emailBtn');
-            const successMsg = document.getElementById('successMessage');
-
-            // Validation
-            if (!name) {
-                alert('Please enter your name');
-                return;
-            }
-
-            if (!email || !email.includes('@')) {
-                alert('Please enter a valid email address');
-                return;
-            }
-
-            if (!currentCalculation) {
-                alert('Please calculate your retirement plan first');
-                return;
-            }
-
-            // Disable button
-            btn.disabled = true;
-            btn.textContent = 'Sending...';
-
-            try {
-                // Check if Firebase is initialized
-                if (!firebaseInitialized || !db) {
-                    throw new Error('Firebase not ready yet. Please wait a moment and try again.');
-                }
-
-                // Save to Firebase Firestore
-                const userData = {
-                    name: name,
-                    email: email,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    calculation: {
-                        age: currentCalculation.age,
-                        currentSavings: currentCalculation.savings,
-                        monthlyInvestment: currentCalculation.monthly,
-                        retirementAge: currentCalculation.retireAge,
-                        returnRate: currentCalculation.returnRate,
-                        projectedTotal: currentCalculation.total,
-                        requiredMonthly: currentCalculation.requiredMonthly,
-                        yearsToRetirement: currentCalculation.years,
-                        onTrack: currentCalculation.onTrack
-                    }
-                };
-
-                // Add to Firestore
-                await db.collection('leads').add(userData);
-
-                console.log('✅ Successfully saved to Firebase!', userData);
-
-                // Show success message
-                successMsg.classList.add('show');
-                btn.textContent = '✓ Sent!';
-
-                // Clear inputs
-                document.getElementById('userName').value = '';
-                document.getElementById('userEmail').value = '';
-
-                // Hide success message after 5 seconds
-                setTimeout(() => {
-                    successMsg.classList.remove('show');
-                    btn.textContent = 'Email Me My Plan';
-                    btn.disabled = false;
-                }, 5000);
-                
-            } catch (error) {
-                console.error('❌ Error:', error);
-                alert('Error: ' + error.message);
-                btn.disabled = false;
-                btn.textContent = 'Email Me My Plan';
-            }
-        }
-
-        function createChart(startAge, endAge, initialSavings, monthlyInvest, annualReturn) {
-            // Generate data points
-            const ages = [];
-            const values = [];
-            const contributions = [];
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Simple ETF Strategy</h3>
+                <p class="feature-description">
+                    Focus on SPY and QQQ. No complex portfolios. No constant rebalancing. 
+                    Just buy, hold, and grow wealthy.
+                </p>
+            </div>
             
-            let currentValue = initialSavings;
-            let totalContributed = initialSavings;
-            const monthlyRate = Math.pow(1 + annualReturn, 1/12) - 1;
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3 class="feature-title">Community Support</h3>
+                <p class="feature-description">
+                    Hold through market crashes together. Celebrate milestones. Share real stories. 
+                    Nobody builds wealth alone.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <h3 class="feature-title">Diamond Hands</h3>
+                <p class="feature-description">
+                    Learn to hold through volatility. Avoid panic selling. Build discipline through 
+                    community accountability.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">Track Your Progress</h3>
+                <p class="feature-description">
+                    Monitor your journey to $100K, $250K, $500K, and beyond. Celebrate every milestone 
+                    with the community.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <h3 class="feature-title">Free Education</h3>
+                <p class="feature-description">
+                    Learn tax optimization, account strategies, and behavioral finance. 
+                    Everything you need to succeed.
+                </p>
+            </div>
+        </div>
+    </section>
 
-            for (let age = startAge; age <= endAge; age++) {
-                ages.push(age);
-                values.push(Math.round(currentValue));
-                contributions.push(Math.round(totalContributed));
+    <!-- Age Groups Section -->
+    <section class="age-section">
+        <h2 class="section-title">Your Age, Your Strategy</h2>
+        <p class="section-subtitle">
+            Every decade requires a different approach. Find your path below.
+        </p>
+        
+        <div class="age-grid">
+            <div class="age-card" onclick="location.href='20s-strategy.html'">
+                <div class="age-emoji">🎓</div>
+                <div class="age-title">Your 20s</div>
+                <p class="age-subtitle">The Time Advantage</p>
+                <div class="age-amount">~$250-500/month</div>
+            </div>
+            
+            <div class="age-card" onclick="location.href='30s-strategy.html'">
+                <div class="age-emoji">💼</div>
+                <div class="age-title">Your 30s</div>
+                <p class="age-subtitle">The Building Decade</p>
+                <div class="age-amount">~$500-850/month</div>
+            </div>
+            
+            <div class="age-card" onclick="location.href='40s-strategy.html'">
+                <div class="age-emoji">🎯</div>
+                <div class="age-title">Your 40s</div>
+                <p class="age-subtitle">The Catch-Up Crew</p>
+                <div class="age-amount">~$1,200-1,800/month</div>
+            </div>
+            
+            <div class="age-card" onclick="location.href='50s-strategy.html'">
+                <div class="age-emoji">🚀</div>
+                <div class="age-title">Your 50s</div>
+                <p class="age-subtitle">The Final Push</p>
+                <div class="age-amount">~$2,500-4,000/month</div>
+            </div>
+        </div>
+    </section>
 
-                // Calculate next year
-                for (let month = 0; month < 12; month++) {
-                    currentValue = currentValue * (1 + monthlyRate) + monthlyInvest;
-                    totalContributed += monthlyInvest;
-                }
-            }
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Join the Nation?</h2>
+        <p>Start your journey to $1 million today. It's free, it's simple, and it works.</p>
+        <div class="cta-buttons">
+            <a href="calculator.html" class="btn btn-primary">Get Your Free Plan</a>
+        </div>
+    </section>
 
-            // Destroy old chart if exists
-            if (chart) {
-                chart.destroy();
-            }
-
-            // Create new chart
-            const ctx = document.getElementById('growthChart').getContext('2d');
-            chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ages,
-                    datasets: [
-                        {
-                            label: 'Portfolio Value',
-                            data: values,
-                            borderColor: '#7c3aed',
-                            backgroundColor: 'rgba(124, 58, 237, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Total Contributed',
-                            data: contributions,
-                            borderColor: '#10b981',
-                            borderWidth: 2,
-                            borderDash: [5, 5],
-                            fill: false,
-                            tension: 0.4
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        },
-                        title: {
-                            display: true,
-                            text: 'Your Portfolio Growth Over Time',
-                            font: { size: 16 }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    label += new Intl.NumberFormat('en-US', {
-                                        style: 'currency',
-                                        currency: 'USD',
-                                        minimumFractionDigits: 0
-                                    }).format(context.parsed.y);
-                                    return label;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return '$' + (value / 1000).toFixed(0) + 'K';
-                                }
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Age'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    </script>
+    <!-- Footer -->
+    <footer>
+        <p><strong>Hold Together. Grow Together. Win Together.</strong> 💎🙌</p>
+        <p style="font-size: 12px; margin-top: 20px;">
+            Disclaimer: Hodler Nation is for educational purposes only. We are not financial advisors. 
+            Past performance does not guarantee future results. Invest at your own risk.
+        </p>
+        <p style="margin-top: 20px; font-size: 14px;">© 2025 Hodler Nation. All rights reserved.</p>
+    </footer>
 </body>
 </html>
