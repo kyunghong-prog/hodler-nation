@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+        }
+        .success {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .error {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        button {
+            background: #7c3aed;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #6d28d9;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔥 Firebase Connection Test</h1>
+    <p>This will test if Firebase is loading correctly.</p>
+
+    <div id="results"></div>
+    <button onclick="runTests()">Run Tests</button>
+
+    <!-- Firebase v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script>
+        function addResult(message, isSuccess) {
+            const div = document.createElement('div');
+            div.className = 'test ' + (isSuccess ? 'success' : 'error');
+            div.innerHTML = (isSuccess ? '✅ ' : '❌ ') + message;
+            document.getElementById('results').appendChild(div);
+        }
+
+        function runTests() {
+            document.getElementById('results').innerHTML = '';
+            
+            // Test 1: Firebase SDK loaded?
+            if (typeof firebase !== 'undefined') {
+                addResult('Firebase SDK is loaded', true);
+                
+                // Test 2: Initialize Firebase
+                try {
+                    const firebaseConfig = {
+                        apiKey: "AIzaSyDR3Y5RgWTMqFW8qCl4ht1WmBMxILUA8n0",
+                        authDomain: "hodler-nation.firebaseapp.com",
+                        projectId: "hodler-nation",
+                        storageBucket: "hodler-nation.firebasestorage.app",
+                        messagingSenderId: "141869525777",
+                        appId: "1:141869525777:web:0d9c467b548a8eba12fab0"
+                    };
+                    
+                    firebase.initializeApp(firebaseConfig);
+                    addResult('Firebase initialized successfully', true);
+                    
+                    // Test 3: Firestore available?
+                    const db = firebase.firestore();
+                    addResult('Firestore is available', true);
+                    
+                    // Test 4: Try to write data
+                    db.collection('test').add({
+                        test: true,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    }).then(() => {
+                        addResult('Successfully wrote to Firestore!', true);
+                        addResult('🎉 Everything is working! Your Firebase is set up correctly.', true);
+                    }).catch(error => {
+                        addResult('Failed to write to Firestore: ' + error.message, false);
+                    });
+                    
+                } catch (error) {
+                    addResult('Failed to initialize Firebase: ' + error.message, false);
+                }
+                
+            } else {
+                addResult('Firebase SDK is NOT loaded - scripts may be blocked', false);
+                addResult('Check: Are you behind a firewall? Is your internet working?', false);
+            }
+        }
+
+        // Auto-run on page load
+        window.addEventListener('load', function() {
+            setTimeout(runTests, 1000);
+        });
+    </script>
+</body>
+</html>
