@@ -14,66 +14,81 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #4c1d95 100%);
-            min-height: 100vh;
-            padding: 20px;
+            height: 100vh;
+            padding: 15px;
+            overflow: hidden;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1100px;
             margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 15px;
         }
 
         .header h1 {
             color: white;
-            font-size: 3rem;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            margin-bottom: 5px;
         }
 
         .header p {
             color: #e9d5ff;
-            font-size: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            flex: 1;
+            overflow: hidden;
         }
 
         .calculator-card {
             background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
         }
 
         .calculator-title {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             color: #1f2937;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .input-group {
-            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
         }
 
         .input-label {
-            display: block;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #374151;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .input-field {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.125rem;
+            padding: 10px;
+            font-size: 1rem;
             border: 2px solid #d1d5db;
-            border-radius: 10px;
+            border-radius: 8px;
             transition: border-color 0.3s;
         }
 
@@ -86,25 +101,31 @@
             width: 100%;
             background: #7c3aed;
             color: white;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            padding: 18px;
+            padding: 12px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            margin-bottom: 30px;
         }
 
         .calculate-btn:hover {
             background: #6d28d9;
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .results-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
         }
 
         .results {
-            border-top: 2px solid #e5e7eb;
-            padding-top: 30px;
             display: none;
         }
 
@@ -114,21 +135,21 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .results-title {
             font-size: 1.25rem;
             font-weight: bold;
             color: #1f2937;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .result-box {
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
         }
 
         .result-box.purple {
@@ -148,7 +169,7 @@
         }
 
         .result-label {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 600;
             margin-bottom: 5px;
         }
@@ -166,7 +187,7 @@
         }
 
         .result-value {
-            font-size: 2.5rem;
+            font-size: 1.75rem;
             font-weight: bold;
         }
 
@@ -183,8 +204,9 @@
         }
 
         .result-detail {
-            font-size: 0.875rem;
-            margin-top: 10px;
+            font-size: 0.75rem;
+            margin-top: 8px;
+            line-height: 1.3;
         }
 
         .result-box.green .result-detail {
@@ -199,35 +221,34 @@
             color: #374151;
         }
 
-        .cta-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
+        .cta-section {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 20px;
+            margin-top: auto;
         }
 
-        .cta-card h3 {
-            font-size: 1.75rem;
+        .cta-section h3 {
+            font-size: 1.25rem;
             color: #1f2937;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
-        .cta-card p {
+        .cta-section p {
             color: #6b7280;
-            font-size: 1rem;
-            margin-bottom: 25px;
+            font-size: 0.875rem;
+            margin-bottom: 12px;
         }
 
         .cta-btn {
             background: #7c3aed;
             color: white;
-            font-size: 1.125rem;
+            font-size: 1rem;
             font-weight: bold;
-            padding: 15px 35px;
+            padding: 10px 25px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background 0.3s;
         }
@@ -236,28 +257,49 @@
             background: #6d28d9;
         }
 
-        .disclaimer {
+        .welcome-message {
             text-align: center;
-            color: #e9d5ff;
-            font-size: 0.75rem;
-            margin-top: 20px;
+            padding: 40px 20px;
         }
 
-        @media (max-width: 640px) {
+        .welcome-message h2 {
+            font-size: 2rem;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .welcome-message p {
+            color: #6b7280;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
             .header h1 {
                 font-size: 2rem;
             }
 
-            .header p {
-                font-size: 1rem;
+            .input-grid {
+                grid-template-columns: 1fr;
             }
 
-            .calculator-card {
-                padding: 25px;
+            body {
+                overflow-y: auto;
+                height: auto;
             }
 
-            .result-value {
-                font-size: 2rem;
+            .container {
+                height: auto;
             }
         }
     </style>
@@ -270,75 +312,91 @@
             <p>Find out exactly how much to invest to retire a millionaire</p>
         </div>
 
-        <!-- Calculator Card -->
-        <div class="calculator-card">
-            <h2 class="calculator-title">
-                📈 Your Retirement Calculator
-            </h2>
+        <div class="main-content">
+            <!-- Left Panel: Calculator -->
+            <div class="calculator-card">
+                <h2 class="calculator-title">📈 Your Retirement Calculator</h2>
 
-            <!-- Input Fields -->
-            <div class="input-group">
-                <label class="input-label">📅 Current Age</label>
-                <input type="number" id="age" class="input-field" value="32" min="18" max="70">
-            </div>
+                <!-- Input Fields -->
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label class="input-label">📅 Current Age</label>
+                        <input type="number" id="age" class="input-field" value="32" min="18" max="70">
+                    </div>
 
-            <div class="input-group">
-                <label class="input-label">💵 Current Retirement Savings ($)</label>
-                <input type="number" id="currentSavings" class="input-field" value="10000" min="0" step="1000">
-            </div>
+                    <div class="input-group">
+                        <label class="input-label">💵 Current Savings ($)</label>
+                        <input type="number" id="currentSavings" class="input-field" value="10000" min="0" step="1000">
+                    </div>
 
-            <div class="input-group">
-                <label class="input-label">📈 Monthly Investment Goal ($)</label>
-                <input type="number" id="monthlyContribution" class="input-field" value="500" min="0" step="50" placeholder="How much can you invest monthly?">
-            </div>
+                    <div class="input-group">
+                        <label class="input-label">📈 Monthly Investment ($)</label>
+                        <input type="number" id="monthlyContribution" class="input-field" value="500" min="0" step="50">
+                    </div>
 
-            <div class="input-group">
-                <label class="input-label">🎯 Target Retirement Age</label>
-                <input type="number" id="targetAge" class="input-field" value="65" min="18" max="100">
-            </div>
+                    <div class="input-group">
+                        <label class="input-label">🎯 Retirement Age</label>
+                        <input type="number" id="targetAge" class="input-field" value="65" min="18" max="100">
+                    </div>
 
-            <!-- Calculate Button -->
-            <button class="calculate-btn" onclick="calculateRetirement()">
-                Calculate My Path to $1M
-            </button>
-
-            <!-- Results (Hidden Initially) -->
-            <div id="results" class="results">
-                <h3 class="results-title">Your Numbers:</h3>
-
-                <!-- Required Monthly -->
-                <div class="result-box purple">
-                    <div class="result-label">TO REACH $1M BY AGE <span id="targetAgeDisplay"></span>, YOU NEED TO INVEST:</div>
-                    <div class="result-value" id="requiredMonthly"></div>
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <label class="input-label">📊 Expected Return Rate</label>
+                        <select id="returnRate" class="input-field">
+                            <option value="0.06">6% - Conservative (Bonds/Balanced)</option>
+                            <option value="0.08">8% - Diversified Portfolio</option>
+                            <option value="0.10" selected>10% - S&P 500 Historical Average</option>
+                        </select>
+                    </div>
                 </div>
 
-                <!-- Current Trajectory -->
-                <div id="trajectoryBox" class="result-box">
-                    <div class="result-label" id="trajectoryLabel"></div>
-                    <div class="result-value" id="totalAtRetirement"></div>
-                    <div class="result-detail" id="trajectoryDetail"></div>
+                <!-- Calculate Button -->
+                <button class="calculate-btn" onclick="calculateRetirement()">
+                    Calculate My Path to $1M
+                </button>
+
+                <!-- CTA Section -->
+                <div class="cta-section">
+                    <h3>Want help staying on track?</h3>
+                    <p>Get weekly check-ins and progress tracking</p>
+                    <button class="cta-btn">Get Started Free</button>
+                </div>
+            </div>
+
+            <!-- Right Panel: Results -->
+            <div class="results-panel">
+                <!-- Welcome Message (shown before calculation) -->
+                <div id="welcomeMessage" class="welcome-message">
+                    <div class="welcome-icon">🎯</div>
+                    <h2>Ready to Plan Your Future?</h2>
+                    <p>Enter your information on the left and click Calculate to see your personalized retirement plan.</p>
+                    <p style="margin-top: 20px; font-size: 0.875rem; color: #9ca3af;">Assumes 10% average annual return (S&P 500 historical average). Educational purposes only.</p>
                 </div>
 
-                <!-- Time Remaining -->
-                <div class="result-box gray">
-                    <div class="result-detail">
-                        <strong id="yearsToRetire"></strong> until retirement
+                <!-- Results (hidden initially) -->
+                <div id="results" class="results">
+                    <h3 class="results-title">Your Results:</h3>
+
+                    <!-- Current Trajectory (moved first) -->
+                    <div id="trajectoryBox" class="result-box">
+                        <div class="result-label" id="trajectoryLabel"></div>
+                        <div class="result-value" id="totalAtRetirement"></div>
+                        <div class="result-detail" id="trajectoryDetail"></div>
+                    </div>
+
+                    <!-- Required Monthly (moved second) -->
+                    <div class="result-box purple">
+                        <div class="result-label">TO REACH $1M BY AGE <span id="targetAgeDisplay"></span>:</div>
+                        <div class="result-value" id="requiredMonthly"></div>
+                    </div>
+
+                    <!-- Time Remaining -->
+                    <div class="result-box gray">
+                        <div class="result-detail">
+                            ⏰ <strong id="yearsToRetire"></strong> until retirement
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- CTA Card -->
-        <div class="cta-card">
-            <h3>Want help staying on track?</h3>
-            <p>Get weekly check-ins, progress tracking, and accountability to actually reach your goal.</p>
-            <button class="cta-btn">Get Started Free</button>
-        </div>
-
-        <!-- Disclaimer -->
-        <div class="disclaimer">
-            Assumes 10% average annual return (S&P 500 historical average). 
-            This is educational only, not financial advice.
         </div>
     </div>
 
@@ -353,32 +411,24 @@
             // Calculate
             const yearsToRetire = targetAge - age;
             const monthsToRetire = yearsToRetire * 12;
-            const targetAmount = 1000000; // $1M goal
-            const annualReturn = 0.10; // 10% average return
+            const targetAmount = 1000000;
+            const annualReturn = 0.10;
             const monthlyReturn = Math.pow(1 + annualReturn, 1/12) - 1;
 
-            // Future value of current savings
             const futureValueOfSavings = currentSavings * Math.pow(1 + annualReturn, yearsToRetire);
-
-            // Amount still needed
             const amountNeeded = targetAmount - futureValueOfSavings;
-
-            // Required monthly contribution
             const requiredMonthly = amountNeeded / 
                 (((Math.pow(1 + monthlyReturn, monthsToRetire) - 1) / monthlyReturn));
 
-            // Future value with user's contribution
             const futureValueOfContributions = monthlyContribution * 
                 (((Math.pow(1 + monthlyReturn, monthsToRetire) - 1) / monthlyReturn));
 
             const totalFutureValue = futureValueOfSavings + futureValueOfContributions;
 
-            // Determine if on track
             const onTrack = totalFutureValue >= targetAmount;
             const shortfall = Math.max(0, targetAmount - totalFutureValue);
             const excess = Math.max(0, totalFutureValue - targetAmount);
 
-            // Format currency
             function formatCurrency(amount) {
                 return new Intl.NumberFormat('en-US', {
                     style: 'currency',
@@ -393,28 +443,25 @@
             document.getElementById('requiredMonthly').textContent = formatCurrency(Math.max(0, requiredMonthly)) + '/month';
             document.getElementById('yearsToRetire').textContent = yearsToRetire + ' years';
 
-            // Trajectory box
             const trajectoryBox = document.getElementById('trajectoryBox');
             const trajectoryLabel = document.getElementById('trajectoryLabel');
             const totalAtRetirementEl = document.getElementById('totalAtRetirement');
             const trajectoryDetail = document.getElementById('trajectoryDetail');
 
-            trajectoryLabel.textContent = `AT YOUR PLANNED RATE (${formatCurrency(monthlyContribution)}/month):`;
-            totalAtRetirementEl.textContent = `${formatCurrency(totalFutureValue)} by age ${targetAge}`;
+            trajectoryLabel.textContent = `AT ${formatCurrency(monthlyContribution)}/MONTH:`;
+            totalAtRetirementEl.textContent = `${formatCurrency(totalFutureValue)} by ${targetAge}`;
 
             if (onTrack) {
                 trajectoryBox.className = 'result-box green';
-                trajectoryDetail.textContent = `Great job! You're on track to exceed your goal by ${formatCurrency(excess)}.`;
+                trajectoryDetail.textContent = `✅ You're on track! Exceeds goal by ${formatCurrency(excess)}.`;
             } else {
                 trajectoryBox.className = 'result-box red';
-                trajectoryDetail.textContent = `You're short by ${formatCurrency(shortfall)}. Increase monthly investment by ${formatCurrency(requiredMonthly - monthlyContribution)}.`;
+                trajectoryDetail.textContent = `⚠️ Short by ${formatCurrency(shortfall)}. Need ${formatCurrency(requiredMonthly - monthlyContribution)} more per month.`;
             }
 
-            // Show results
+            // Show results, hide welcome
+            document.getElementById('welcomeMessage').style.display = 'none';
             document.getElementById('results').classList.add('show');
-
-            // Scroll to results
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     </script>
 </body>
